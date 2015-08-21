@@ -1,0 +1,28 @@
+{
+	"name": "gulp-css-nbd",
+	"version": "0.0.0",
+	"description": "CSS nesting by directory gulp plugin",
+	"main": "index.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git://github.com/m18ru/gulp-css-nbd.git"
+	},
+	"bugs": {
+		"url": "https://github.com/m18ru/gulp-css-nbd/issues"
+	},
+	"keywords": [
+		"gulpplugin",
+		"css",
+		"less",
+		"nesting"
+	],
+	"dependencies": {
+		"gulp-util": "~3.0.6",
+		"through2": "~2.0.0"
+	},
+	"author": "Andrey (Avol) Volynkin <code@m18.ru>",
+	"license": "MIT"
+}
