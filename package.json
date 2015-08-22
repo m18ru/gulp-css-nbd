@@ -1,6 +1,6 @@
 {
 	"name": "gulp-css-nbd",
-	"version": "0.0.0",
+	"version": "0.0.2",
 	"description": "CSS nesting by directory gulp plugin",
 	"main": "index.js",
 	"scripts": {
@@ -23,6 +23,6 @@
 		"gulp-util": "~3.0.6",
 		"through2": "~2.0.0"
 	},
-	"author": "Andrey (Avol) Volynkin <code@m18.ru>",
+	"author": "Andrey Avol Volynkin <code@m18.ru>",
 	"license": "MIT"
 }
