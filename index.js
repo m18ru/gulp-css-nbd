@@ -51,8 +51,6 @@ module.exports = function ()
 		var selector = '';
 		var firstEntry = true;
 		
-		console.log( pathWithoutExtension( data.path ).substr( data.base.length ) );
-		
 		pathWithoutExtension( data.path )
 			.substr( data.base.length )
 			.split( '/' )
