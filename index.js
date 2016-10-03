@@ -24,62 +24,88 @@ module.exports = function ()
 			
 			if ( data.isBuffer() )
 			{
-				if ( isDomEntry( data ) )
+				if ( isSkipFile( data ) )
 				{
-					data.contents = new Buffer(
-						getParentSelector( data ) + '\n{\n'
-						+ String( data.contents )
-						+ '\n}\n'
-					);
+					callback();
+					return;
 				}
+				
+				data.contents = new Buffer(
+					getParentSelector( data ) + '\n{\n'
+					+ String( data.contents )
+					+ '\n}\n'
+				);
 				
 				callback( null, data );
 			}
 		}
 	);
 	
-	function isDomEntry( data )
+	function isSkipFile( data )
 	{
-		return /^(?:\d+_)?html/.test(
-			data.path.substr( data.base.length ).split( '/' )[0]
-		);
+		return /\/_[^\/]*$/.test( data.path );
 	}
 	
 	function getParentSelector( data )
 	{
-		var selector;
+		var selector = '';
+		var firstEntry = true;
 		
-		selector = '';
+		console.log( pathWithoutExtension( data.path ).substr( data.base.length ) );
 		
-		data.path.substr( data.base.length )
+		pathWithoutExtension( data.path )
+			.substr( data.base.length )
 			.split( '/' )
-			.slice( 0, -1 )
 			.forEach(
-				function ( dir, index )
+				function ( name )
 				{
-					if ( index === 0 )
+					if ( isNotForSelector( name ) )
 					{
-						selector += dir.replace( /^\d+_/, '' );
+						return;
 					}
-					else
+					
+					if ( firstEntry )
 					{
-						if ( isDescendantSelector( dir ) )
+						if ( isDescendantSelector( name ) )
 						{
-							selector += dir.substr( 1 );
+							selector = name.substr( 1 );
 						}
 						else
 						{
-							selector += '> ' + dir;
+							selector = name;
 						}
 					}
+					else if ( isDescendantSelector( name ) )
+					{
+						selector += ' ' + name.substr( 1 );
+					}
+					else
+					{
+						selector += ' > ' + name;
+					}
+					
+					firstEntry = false;
 				}
 			);
 		
 		return selector;
 	}
 	
+	function pathWithoutExtension( path )
+	{
+		return path.replace( /\.\w+$/, '' );
+	}
+	
 	function isDescendantSelector( name )
 	{
 		return name.charAt( 0 ) === '!';
+	}
+	
+	function isNotForSelector( name )
+	{
+		return (
+			( name.charAt( 0 ) === '_' )
+			|| ( name.indexOf( '&' ) !== -1 )
+		);
 	}
 };
