@@ -1,6 +1,6 @@
 {
 	"name": "gulp-css-nbd",
-	"version": "0.0.2",
+	"version": "1.0.0",
 	"description": "CSS nesting by directory gulp plugin",
 	"main": "index.js",
 	"scripts": {
