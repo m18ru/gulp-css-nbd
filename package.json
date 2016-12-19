@@ -17,7 +17,8 @@
 		"gulpplugin",
 		"css",
 		"less",
-		"nesting"
+		"nesting",
+		"nest-css"
 	],
 	"dependencies": {
 		"gulp-util": "~3.0.6",
