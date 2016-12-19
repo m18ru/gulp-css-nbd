@@ -82,21 +82,26 @@ function getPathSelector( data )
 				}
 				
 				var descendant = isDescendantSelector( name );
+				var modifier = isModifier( name );
 				var combinator = (
-					( selectors[0].length === 0 )
+					(
+						modifier
+						|| ( selectors[0].length === 0 )
+					)
 					? ''
 					: ( descendant ? ' ' : ' > ' )
 				);
-				var parts = splitSelectors(
-					descendant
-					? name.substr( 1 )
-					: name
-				);
+				var parts = splitSelectors( name );
 				var currentSelectors = selectors.slice();
 				
 				for ( var i = 0, n = parts.length; i < n; i++ )
 				{
-					var selector = combinator + parts[i];
+					var selector = combinator
+						+ (
+							( descendant || modifier )
+							? parts[i].substr( 1 )
+							: parts[i]
+						);
 					
 					if ( i > 0 )
 					{
@@ -192,6 +197,17 @@ function isDescendantSelector( name )
 }
 
 /**
+ * Checks whether it is modifier of selector
+ * 
+ * @param name File or directory name
+ * @returns Modifier of selector?
+ */
+function isModifier( name )
+{
+	return ( name.charAt( 0 ) === '&' );
+}
+
+/**
  * Checks that it should not be a part of the selector
  * 
  * @param name File or directory name
@@ -200,7 +216,9 @@ function isDescendantSelector( name )
 function isNotForSelector( name )
 {
 	return (
+		// Partial
 		( name.charAt( 0 ) === '_' )
-		|| ( name.indexOf( '&' ) !== -1 )
+		// Same selector
+		|| ( name === '&' )
 	);
 }
