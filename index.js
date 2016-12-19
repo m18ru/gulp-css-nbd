@@ -19,7 +19,10 @@ module.exports = function ()
 			{
 				this.emit(
 					'error',
-					new gulpUtil.PluginError( 'gulp-css-nbd', 'Streams are not supported!' )
+					new gulpUtil.PluginError(
+						'gulp-css-nbd',
+						'Streams are not supported!'
+					)
 				);
 				callback();
 				return;
@@ -64,7 +67,7 @@ function isSkipFile( data )
  */
 function getPathSelector( data )
 {
-	var selectors = [ '' ];
+	var selectors = [''];
 	var firstEntry = true;
 	
 	pathWithoutExtension( data.path )
@@ -80,7 +83,7 @@ function getPathSelector( data )
 				
 				var descendant = isDescendantSelector( name );
 				var combinator = (
-					selectors[0].length === 0
+					( selectors[0].length === 0 )
 					? ''
 					: ( descendant ? ' ' : ' > ' )
 				);
@@ -185,7 +188,7 @@ function pathWithoutExtension( path )
  */
 function isDescendantSelector( name )
 {
-	return name.charAt( 0 ) === '!';
+	return ( name.charAt( 0 ) === '!' );
 }
 
 /**
