@@ -45,6 +45,18 @@ Rules:
 - Directories starts with `_` used only for special grouping and their name is not used in the selector.
 - Files starts with `_` are skipped.
 - Files and directories starts with `!` joined using descendant combinator, other joined using child combinator.
+- Files starts with `@` are not add their name to the selector (useful for at-rules).
+- Filenames are unescaped using `querystring.unescape` (to bypass filesystem limits).
+
+These characters should be escaped:
+
+| `<` | `>` | `:` | `"` | `/` | `\` | `|` | `?` | `*` | `%` |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| %3C | %3E | %3A | %22 | %2F | %5C | %7C | %3F | %2A | %25 |
+
+It’s not strictly required and can be used without escaping (except `/`), even
+`%` (because of using `querystring.unescape` instead of `decodeURIComponent`),
+but this will make code more reliable.
 
 ## Usage
 
