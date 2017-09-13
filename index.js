@@ -220,5 +220,7 @@ function isNotForSelector( name )
 		( name.charAt( 0 ) === '_' )
 		// Same selector
 		|| ( name === '&' )
+		// At-rule
+		|| ( name.charAt( 0 ) === '@' )
 	);
 }
