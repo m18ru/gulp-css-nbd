@@ -50,9 +50,9 @@ Rules:
 
 These characters should be escaped:
 
-| `<` | `>` | `:` | `"` | `/` | `\` | `|` | `?` | `*` | `%` |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| %3C | %3E | %3A | %22 | %2F | %5C | %7C | %3F | %2A | %25 |
+| `<` | `>` | `:` | `"` | `/` | `\` | &#x7C; | `?` | `*` | `%` |
+| --- | --- | --- | --- | --- | --- | ------ | --- | --- | --- |
+| %3C | %3E | %3A | %22 | %2F | %5C | %7C    | %3F | %2A | %25 |
 
 It’s not strictly required and can be used without escaping (except `/`), even
 `%` (because of using `querystring.unescape` instead of `decodeURIComponent`),
