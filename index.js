@@ -36,10 +36,9 @@ module.exports = function ()
 					return;
 				}
 				
-				data.contents = new Buffer(
-					getPathSelector( data ) + '\n{\n'
-					+ String( data.contents )
-					+ '\n}\n'
+				data.contents = wrapWithSelector(
+					data.contents,
+					getPathSelector( data )
 				);
 				
 				callback( null, data );
@@ -47,6 +46,26 @@ module.exports = function ()
 		}
 	);
 };
+
+/**
+ * Wrap file content with CSS selector.
+ * 
+ * @param {Buffer} contents File contents.
+ * @param {string} selector CSS selector.
+ */
+function wrapWithSelector( contents, selector )
+{
+	if ( !selector )
+	{
+		return contents;
+	}
+	
+	return new Buffer(
+		selector + '\n{\n'
+		+ String( contents )
+		+ '\n}\n'
+	);
+}
 
 /**
  * Checks whether the file should be skipped
