@@ -1,5 +1,6 @@
 var gulpUtil = require( 'gulp-util' );
 var through2 = require( 'through2' );
+var unescape = require( 'querystring' ).unescape;
 
 /**
  * CSS nesting by directory gulp plugin
@@ -93,8 +94,10 @@ function getPathSelector( data )
 		.substr( data.base.length )
 		.split( '/' )
 		.forEach(
-			function ( name )
+			function ( rawName )
 			{
+				var name = unescape( rawName );
+				
 				if ( isNotForSelector( name ) )
 				{
 					return;
